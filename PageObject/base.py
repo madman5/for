@@ -9,7 +9,7 @@ import unittest
 
 class Base(object):
 
-	def __init__(self, drive, url="http://qudao.jiaofuyun.com/Home/login"):
+	def __init__(self, drive, url="http://xxx.com"):
 		self.driver = drive
 		self.url = url
 		self.timeout = 10
