@@ -4,12 +4,11 @@ sys.path.append('..')
 from model.dirpath import Dir_path
 
 p = Dir_path()
-path = p.getpath()
-log_path = os.path.join(path,'Report')
+path = p.dirName("log")
 
 class Log():
 	def __init__(self):
-		self.log_name = os.path.join(log_path, ('%s.log') % time.strftime('%Y_%m_%d'))	 # 日志名称
+		self.log_name = os.path.join(path, ('%s.log') % time.strftime('%Y_%m_%d'))	 # 日志名称
 
 		self.logger = logging.getLogger()    # 第一步，创建一个logger 记录器
 		self.logger.setLevel(logging.DEBUG)  # Log等级总开关

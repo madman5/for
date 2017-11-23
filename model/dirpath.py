@@ -39,7 +39,7 @@ class Dir_path():
 		f = os.path.join(self.getpath(),Folder)
 		if os.path.exists (f) == False:
 			os.makedirs(f)
-			print "创建%s目录成功" %Folder
+			print "未发现%s目录，自动创建%s目录成功" %(Folder,Folder)
 		return f
 
 

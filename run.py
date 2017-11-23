@@ -26,7 +26,7 @@ class Resport():
 
 		now_time = time.strftime("%Y-%m-%d_%H_%M_%S", time.localtime())
 
-		# 获取Report的目录地址
+		# 创建并获取Report的目录地址
 		reportdir = self.p.dirName(rname)
 
 		# 拼接report文件名称
@@ -34,10 +34,9 @@ class Resport():
 
 		f = open(reportname, "wb")
 
-		runner = HTMLTestRunner.HTMLTestRunner(stream = f, title = title, description = description, verbosity = 2)
+		runner = HTMLTestRunner.HTMLTestRunner(stream = f, title = title, description = description, verbosity = 2, retry = 1)
 		if runner.run(self.testSuites()):
 			log.info(u"-------登录用例执行完成-------") 
-
 		f.close()
 
 
