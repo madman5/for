@@ -86,11 +86,11 @@ class Base(object):
 
 	# 重写显示等待until
     def webDriverWait_until(self, loc):
-        return WebDriverWait(self.driver, 10, 0.5).until(EC.presence_of_element_located(loc))
+        return WebDriverWait(self.driver, 10, 0.5).until(EC.presence_of_element_located(*loc))
 
 	# 重写显示等待until_not
     def webDriverWait_until_not(self, loc):
-        return WebDriverWait(self.driver, 10, 0.5).until_not(EC.presence_of_element_located(loc))
+        return WebDriverWait(self.driver, 10, 0.5).until_not(EC.presence_of_element_located(*loc))
 
 	# 重定义switch_iframe
     def switch_iframe(self, *loc):
