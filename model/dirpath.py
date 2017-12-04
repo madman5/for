@@ -3,48 +3,45 @@ import os
 
 class Dir_path():
 
-	##把根路径写入到path文件中
+	##把根路径写入到path文件中并返回
 	def get_path (self):
 		path = os.path.dirname(os.path.realpath(__file__))
 		path = os.path.dirname(path)
 		filename = "%s\path.txt" % path
-
-		f = open(filename, "wb")
 		try:
+			f = open(filename, "wb")
 			path = path.replace("\\", r"\\")
 			f.write(path)
 			return path
 		except Exception as msg:
 			print ("打开文件或写内文件内容发生错误：%s"%msg)
-		f.close()
+		finally:
+			f.close()
  
-	def getpath(self):
-		# 获取path.txt的绝对路径
-		path = os.path.dirname(os.path.dirname (os.path.realpath (__file__)))
-		patht = os.path.join(path, "path.txt")
-
-		if os.path.exists(patht) == False:
-			self.get_path()
-		f = open(patht)
-		p = str(f.readlines()[0])
-
-		if p not in os.getcwd():
-			p = self.get_path()
-
-		f.close()
-		return p
 
 	# 创建并返回目录
 	def dirName(self,Folder):
-		f = os.path.join(self.getpath(),Folder)
-		if os.path.exists (f) == False:
-			os.makedirs(f)
+		path = os.path.join(self.get_path(),Folder)
+		if os.path.exists (path) == False:
+			os.makedirs(path)
 			print "未发现%s目录，自动创建%s目录成功" %(Folder,Folder)
-		return f
+		return path
+
+
+
+	def existsfile(self,folder, filename):
+		path = self.dirName(folder)
+		file = os.path.join(path,filename)
+		if os.path.exists(file) == False:
+			print u"%s目录下无配置文件，请创建%s文件!" %(folder,filename)
+			return False
+		return file
+
+
 
 
 
 if __name__ == "__main__":
 	D = Dir_path()
-	D.getpath()
-	# print(D.dirName("Resport"))
+	D.get_path()
+	# print(D.dirName("Report"))

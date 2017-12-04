@@ -10,15 +10,13 @@ filename = os.path.join(path,"date.csv")
 print filename
 
 def getcsv(filename):
+	rows=[]
 	with open(filename, mode = 'rb') as f:
-		csv_reader = csv.reader(f)
+		csv_reader = csv.reader(f,delimiter=',',quotechar='|')
+		next(csv_reader,None)
 		for i in csv_reader:
-			# print i;
-			pass
-	if len(i) == 3:
-		a = ','.join(i).split(',')
-		return tuple(a)
-
+			rows.append(i)
+	print rows
 
 
 

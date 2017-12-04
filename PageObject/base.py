@@ -12,7 +12,7 @@ import unittest
 
 class Base(object):
 
-    def __init__(self, drive, url="http://qudao.jiaofuyun.com/Home/login"):
+    def __init__(self, drive, url="xxxxxxxxxxxxxx"):
         self.driver = drive
         self.url = url
         self.timeout = 10
@@ -25,21 +25,14 @@ class Base(object):
     def open(self):
         self._open()
 
-	# 重定义获取cookies
-	# def getCookie(self, cookiename):
-	# 	return self.driver.get_cookie(cookiename)
-	#
-	#
-	# def addCookies(self, cookies):
-	# 	self.driver.add_cookie(cookies)
-	# 	self.driver.refresh()
 
 	# 重定义find_element方法
     def find_element(self, *loc):
         try:
+            WebDriverWait(self.driver, 10, 0.5).until(lambda driver:driver.find_element(*loc).is_displayed())
             return self.driver.find_element(*loc)
-        except NoSuchElementException as e:
-            print u"元素定位出错原因：%s" %e
+        except Exception as e:
+            print u"找不到元素：%s" % e
 
 	# 重定义find_element方法
     def find_elements(self, *loc):
@@ -67,12 +60,10 @@ class Base(object):
         except Exception as msg:
             print "元素位置或JS方法错误"
 
-
 	# 重定义click
     def click(self, *loc):
 		# 逻辑判断没写
         return self.find_element(*loc).click()
-
 
 	# 重定义senk_key
     def send_key(self, value, *loc):
@@ -84,32 +75,21 @@ class Base(object):
 		# 逻辑判断没写
         return self.find_element(*loc)
 
-	# 重写显示等待until
-    def webDriverWait_until(self, loc):
-        return WebDriverWait(self.driver, 10, 0.5).until(EC.presence_of_element_located(*loc))
-
-	# 重写显示等待until_not
-    def webDriverWait_until_not(self, loc):
-        return WebDriverWait(self.driver, 10, 0.5).until_not(EC.presence_of_element_located(*loc))
-
 	# 重定义switch_iframe
     def switch_iframe(self, *loc):
 		# 逻辑判断没写
         iframe = self.find_element(*loc)
         return self.driver.switch_to.frame(iframe)
 
-
 	# 重定义switch_to.default_content方法
     def iframe_out(self):
         return self.driver.switch_to.default_content()
-
 
 	# 重定义鼠标悬停方法
     def move_to_element(self, *loc):
         # 逻辑判断没写
         return ActionChains(self.driver).move_to_element(self.find_element(*loc)).perform()
 
- 
 
 if __name__ == "__main__":
     driver = webdriver.Chrome()
